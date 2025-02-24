@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# IDE
+/.vscode
+
+# misc
+.DS_Store
+*.log
+
+# environment
+.env*
+.env.development
+
+# build
+/dist
+
+# tests
+/test
+/coverage
+/.nyc_output
+build/config\.gypi
+
+dump.rdb
