@@ -1,7 +1,7 @@
 {
   "name": "aib_insurance_management",
   "version": "0.0.1",
-  "description": "AIB Insurance Management Platform",
+  "description": "AIB Insurance Management Platform, USSD Implementation",
   "author": "VTGhub Team",
   "maintainers": [],
   "license": "MIT",

@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { UserModule } from '../users/user.module';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+// import { UserModule } from '../users/user.module';
 import { JwtStrategy } from './jwt.strategy';
 import { RolesGuard } from 'common/guards/roles.guard';
 import { ConfigModule } from 'config/config.module';
@@ -23,22 +21,10 @@ import { EmailService } from '@/utils/email-template.handler';
       }),
       inject: [ConfigService],
     }),
-    UserModule,
+    // UserModule,
   ],
-  controllers: [AuthController],
-  providers: [
-    AuthService,
-    JwtStrategy,
-    RolesGuard,
-    ResponseHelper,
-    EmailService,
-  ],
-  exports: [
-    AuthService,
-    ResponseHelper,
-    EmailService,
-    JwtStrategy,
-    PassportModule,
-  ],
+  controllers: [],
+  providers: [JwtStrategy, RolesGuard, ResponseHelper, EmailService],
+  exports: [ResponseHelper, EmailService, JwtStrategy, PassportModule],
 })
 export class AuthModule {}
