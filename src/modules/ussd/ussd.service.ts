@@ -24,13 +24,12 @@ export class UssdService {
     });
 
     if (!session) {
-      const newSession = this.ussdSessionModel.build({
+      return await this.ussdSessionModel.create<UssdSession>({
         session_id: sessionId,
         phone_number: phoneNumber,
         state: UssdState.INITIAL,
         data: {},
-      });
-      return newSession.save();
+      } as any);
     }
 
     return session;
@@ -190,20 +189,23 @@ export class UssdService {
 
       const hashedPin = await bcrypt.hash(confirmPin, 10);
 
-      const newUser = this.userModel.build({
-        first_name: session.data.firstName,
-        last_name: session.data.lastName,
-        phone_number: session.phone_number,
-        password: hashedPin,
-        role: 'CLIENT',
-        email: `${session.phone_number}@placeholder.com`,
-        is_verified: true,
-        client_type: 'individual',
-        is_active: true,
-        is_client: true,
-      });
+      await this.userModel.create(
+        {
+          user_id: undefined,
+          first_name: session.data.firstName,
+          last_name: session.data.lastName,
+          phone_number: session.phone_number,
+          password: hashedPin,
+          role: 'CLIENT',
+          email: `${session.phone_number}@placeholder.com`,
+          is_verified: true,
+          client_type: 'individual',
+          is_active: true,
+          is_client: true,
+        } as any,
+        { transaction: t },
+      );
 
-      await newUser.save({ transaction: t });
       await t.commit();
       await session.destroy();
 
