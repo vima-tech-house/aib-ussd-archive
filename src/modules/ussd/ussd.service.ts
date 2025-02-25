@@ -24,7 +24,6 @@ export class UssdService {
     });
 
     if (!session) {
-      // Use build and save pattern which handles types better
       const newSession = this.ussdSessionModel.build({
         session_id: sessionId,
         phone_number: phoneNumber,
@@ -169,7 +168,6 @@ export class UssdService {
       return 'CON PINs do not match. Please enter your PIN again:';
     }
 
-    // Handle the sequelize property possibly being undefined
     const sequelize = this.ussdSessionModel.sequelize;
     if (!sequelize) {
       await session.destroy();
@@ -179,7 +177,6 @@ export class UssdService {
     const t = await sequelize.transaction();
 
     try {
-      // Check if user already exists
       const existingUser = await this.userModel.findOne({
         where: { phone_number: session.phone_number },
         transaction: t,
@@ -193,15 +190,14 @@ export class UssdService {
 
       const hashedPin = await bcrypt.hash(confirmPin, 10);
 
-      // Create new user with build and save pattern
       const newUser = this.userModel.build({
         first_name: session.data.firstName,
         last_name: session.data.lastName,
         phone_number: session.phone_number,
         password: hashedPin,
         role: 'CLIENT',
-        email: `${session.phone_number}@placeholder.com`, // Temporary email
-        is_verified: true, // Auto-verify USSD users
+        email: `${session.phone_number}@placeholder.com`,
+        is_verified: true,
         client_type: 'individual',
         is_active: true,
         is_client: true,
