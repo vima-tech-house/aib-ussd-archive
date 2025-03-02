@@ -2,6 +2,25 @@ import { Module } from '@nestjs/common';
 import * as path from 'path';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { User } from './models/user.model';
+import { Institution } from './models/institution.model';
+import { Feature } from './models/feature.model';
+import { Action } from './models/action.model';
+import { InsuranceType } from './models/insurance-type.model';
+import { FeatureAction } from './models/feature-action.model';
+import { UserFeatureAction } from './models/user-feature-action.model';
+import { Account } from './models/account.model';
+import { Vehicle } from './models/vehicle.model';
+import { VehicleMake } from './models/vehicle-make.model';
+import { VehicleType } from './models/vehicle-types.model';
+import { Insurer } from './models/insurer.model';
+import { InsurerInsuranceType } from './models/insurer-insurance-type.model';
+import { Quotation } from './models/quotation.model';
+import { QuotationItem } from './models/quotation-item.model';
+import { Transactions } from './models/transaction.model';
+import { Policy } from './models/policy.model';
+import { Notification } from './models/notification.model';
+import { UssdSession } from './models/ussd-session.model';
 
 @Module({
   imports: [
@@ -18,8 +37,25 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
         models: [
-          // Account,
-          // Notification,
+          User,
+          Institution,
+          InsuranceType,
+          Feature,
+          Action,
+          FeatureAction,
+          UserFeatureAction,
+          Account,
+          Vehicle,
+          VehicleMake,
+          VehicleType,
+          Insurer,
+          InsurerInsuranceType,
+          Quotation,
+          QuotationItem,
+          Transactions,
+          Policy,
+          Notification,
+          UssdSession,
         ],
         synchronize: configService.get('NODE_ENV') === 'development',
         autoLoadModels: true,

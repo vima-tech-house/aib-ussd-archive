@@ -4,6 +4,7 @@ import { DatabaseModule } from 'database/database.module';
 import { ConfigService } from 'config/config.service';
 import { ConfigModule } from 'config/config.module';
 import { AuthModule } from 'modules/auth/auth.module';
+import { UssdModule } from '@modules/ussd/ussd.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from 'modules/auth/auth.module';
       inject: [ConfigService],
     }),
     AuthModule,
+    UssdModule,
     DatabaseModule,
   ],
 })
